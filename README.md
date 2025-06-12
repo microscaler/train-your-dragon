@@ -64,6 +64,16 @@ By the end of the course, **you or your team will be able to**:
 * ✅ Integrate custom LLMs into internal developer tools
 * ✅ Teach others how to do the same — scaling your AI capabilities
 
+## 🔗 Repository Navigation
+
+Your starting point:
+
+- 📘 Full Course Syllabus
+- 🧭 Execution Plan
+- 💼 Capstone Projects: see /modules/19_ to /modules/26_ for real-world use cases
+
+
+
 ---
 
 ## 🛠 Requirements
@@ -76,6 +86,7 @@ By the end of the course, **you or your team will be able to**:
 ---
 
 ## 🧭 Ready to Begin?
+
 
 Start with [Module 0: Orientation](../modules/OO_orientation/README.md) and we’ll guide you through from zero to your first model.
 
