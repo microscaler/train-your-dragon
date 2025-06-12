@@ -1,4 +1,4 @@
-# 🐉 Train Your Dragon: README
+# 🐉 Train Your Dragon
 
 ## 📖 What Is This Course?
 
@@ -100,6 +100,6 @@ Your starting point:
 ## 🧭 Ready to Begin?
 
 
-Start with [Module 0: Orientation](../modules/OO_orientation/README.md) and we’ll guide you through from zero to your first model.
+Start with [Module 0: Orientation](./modules/00_orientation/README.md) and we’ll guide you through from zero to your first model.
 
 Let’s train your dragon.

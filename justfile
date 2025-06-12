@@ -32,7 +32,8 @@ clean:
 venv:
 	conda create -n train-your-dragon python=3.10
 
-
-
 notebook:
 	jupyter notebook labs/unsloth_finetune/
+
+quiz MODULE:
+	streamlit run scripts/quiz_web_app.py -- --module {{MODULE}}

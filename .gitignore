@@ -1,0 +1,28 @@
+# Bytecode
+__pycache__/
+*.py[cod]
+
+# Python envs
+.env
+.venv/
+env/
+venv/
+
+# Data artifacts
+*.gguf
+*.jsonl
+*.csv
+*.npz
+*.pt
+*.ckpt
+*.bin
+data/
+checkpoints/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store

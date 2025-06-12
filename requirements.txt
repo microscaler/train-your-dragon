@@ -1,0 +1,25 @@
+# Core libraries
+torch>=2.0.0
+transformers>=4.36.0
+accelerate>=0.24.0
+datasets
+peft
+sentencepiece
+scipy
+scikit-learn
+tqdm
+
+# LLM training
+unsloth
+trl
+wandb
+
+# Optional: RAG, vector DBs
+chromadb
+faiss-cpu
+openai  # for embeddings, optional
+langchain  # if using for orchestration
+
+# Frontends (optional)
+streamlit
+gradio

@@ -1,7 +1,3 @@
-Absolutely — here’s a **comprehensive course topic outline** to guide you from fundamentals to advanced mastery of **LLM training for low-hallucination, coding-focused use cases**, including continual training and deployment strategies.
-
----
-
 # 🧠 **Course Title**: *LLM Training & Fine-Tuning for Practical AI Agents*
 
 ## 🎯 Target Outcome

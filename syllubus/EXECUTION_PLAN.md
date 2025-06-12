@@ -1,22 +1,3 @@
----
-
-# 🔁 Phase-Based Execution Strategy
-
-Here’s a practical plan:
-
-### ✅ Phase 1: Personal Mastery
-
-Start working through each module in sequence (0 → 16), with me as your co-instructor:
-
-* I guide you through each section
-* We complete exercises/labs together (e.g. build a tokenizer, tune a model)
-* You generate your own datasets along the way (starting with coroutine-first code)
-
-📍 **We begin with MODULE 0.5**:
-I'll help you set up the tooling locally or in Colab/RunPod so you’re ready to train.
-
----
-
 ### 🧠 Phase 2: Team Training
 
 Once you’ve done the first 5–6 modules:
