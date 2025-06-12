@@ -1,0 +1,97 @@
+[
+  {
+    "number": "00",
+    "title": "Orientation",
+    "slug": "orientation"
+  },
+  {
+    "number": "01",
+    "title": "Environment Setup & Tooling",
+    "slug": "environment_setup"
+  },
+  {
+    "number": "02",
+    "title": "LLM Architecture & Training Foundations",
+    "slug": "llm_architecture"
+  },
+  {
+    "number": "03",
+    "title": "Building Datasets for LLM Training",
+    "slug": "datasets"
+  },
+  {
+    "number": "04",
+    "title": "Finetuning LLMs (from scratch and adapters)",
+    "slug": "finetuning"
+  },
+  {
+    "number": "05",
+    "title": "Minimizing Hallucinations in Code Generation",
+    "slug": "hallucination_control"
+  },
+  {
+    "number": "06",
+    "title": "Continual Training & Iterative Improvement",
+    "slug": "continual_training"
+  },
+  {
+    "number": "07",
+    "title": "Evaluation & Alignment",
+    "slug": "evaluation"
+  },
+  {
+    "number": "08",
+    "title": "LLM Deployment for Developer Teams",
+    "slug": "deployment"
+  },
+  {
+    "number": "09",
+    "title": "Retrieval-Augmented Generation (RAG)",
+    "slug": "rag"
+  },
+  {
+    "number": "10",
+    "title": "Teaching & Scaling LLM Development",
+    "slug": "scaling"
+  },
+  {
+    "number": "11",
+    "title": "Data Governance, Licensing & Ethics",
+    "slug": "governance"
+  },
+  {
+    "number": "12",
+    "title": "Tokenizer Engineering & Vocabulary Optimization",
+    "slug": "tokenizer"
+  },
+  {
+    "number": "13",
+    "title": "Instruction Tuning & Chat Formatting",
+    "slug": "instruction_tuning"
+  },
+  {
+    "number": "14",
+    "title": "Scalable Training Infrastructure",
+    "slug": "infrastructure"
+  },
+  {
+    "number": "15",
+    "title": "Adversarial Testing & Robustness",
+    "slug": "adversarial"
+  },
+  {
+    "number": "16",
+    "title": "Tool-Use & Multi-Agent Systems",
+    "slug": "multiagent"
+  },
+  {
+    "number": "17",
+    "title": "Evaluation Benchmarks & Leaderboards",
+    "slug": "benchmarks"
+  },
+  {
+    "number": "18",
+    "title": "LLMOps & Lifecycle Management",
+    "slug": "llmops"
+  }
+]

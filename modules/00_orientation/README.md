@@ -78,7 +78,7 @@ Document the results in your learner journal.
 ## 🔗 Linked Modules
 
 * [Module 01: Environment Setup](../01_Environment_Setup_&_Tooling/README.md)
-* [Module 03: Dataset Design](../03_Building_Datasets_for_LLM_Training/README.md)
+* [Module 03: Dataset Design](../03_datasets/README.md)
 * [Module 19+: Capstones](../../modules/19_Capstone_Project_0_custom_coding-focused_LLM_agent)
 
 ---
