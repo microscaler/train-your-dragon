@@ -1,0 +1,70 @@
+[
+  {
+    "instruction": "Write a Python operating system that supports cooperative multitasking using coroutines.",
+    "output": "```python\n<INSERT pyos8.py CODE HERE>\n```"
+  },
+  {
+    "instruction": "Write a coroutine that filters lines from a log stream for a keyword and sends them to a printer coroutine.",
+    "output": "```python\n@coroutine\ndef grep(pattern, target):\n    while True:\n        line = (yield)\n        if pattern in line:\n            target.send(line)\n```"
+  },
+  {
+    "instruction": "Design a fan-out coroutine pipeline that broadcasts items to multiple consumers.",
+    "output": "```python\n@coroutine\ndef broadcast(targets):\n    while True:\n        item = (yield)\n        for target in targets:\n            target.send(item)\n```"
+  },
+  {
+    "instruction": "Design a fan-in coroutine pipeline that merges multiple filters into a single output coroutine.",
+    "output": "```python\nf = open(\"access-log\")\np = printer()\nfollow(f,\n   broadcast([grep('python', p),\n              grep('ply', p),\n              grep('swig', p)])\n)\n```"
+  },
+  {
+    "instruction": "Write a Rust program that uses async/await for high concurrency and only uses threads for dispatching blocking tasks.",
+    "output": "```rust\nuse tokio::task;\nuse std::time::Duration;\n\nasync fn lightweight_task(id: usize) {\n    println!(\"Coroutine {} started\", id);\n    tokio::time::sleep(Duration::from_millis(100)).await;\n    println!(\"Coroutine {} finished\", id);\n}\n\n#[tokio::main]\nasync fn main() {\n    for i in 0..10 {\n        tokio::spawn(lightweight_task(i));\n    }\n    tokio::time::sleep(Duration::from_secs(1)).await;\n}\n```"
+  },
+  {
+    "instruction": "Use the `may` crate to implement a coroutine scheduler that runs multiple coroutines cooperatively in Rust.",
+    "output": "```rust\nuse may::coroutine;\nuse std::time::Duration;\n\nfn main() {\n    for i in 0..5 {\n        coroutine::spawn(move || {\n            println!(\"coroutine {} running\", i);\n            may::go!(|| {\n                may::std::thread::sleep(Duration::from_millis(100));\n                println!(\"coroutine {} finished\", i);\n            });\n        });\n    }\n    may::config().set_io_workers(1);\n}\n```"
+  },
+  {
+    "instruction": "Write a coroutine-based log filter pipeline in Rust using may::go and channels.",
+    "output": "```rust\nuse may::go;\nuse std::sync::mpsc;\n\nfn main() {\n    let (tx, rx) = mpsc::channel();\n\n    go!(move || {\n        let lines = vec![\"python is great\", \"nothing here\", \"ply is cool\"];\n        for line in lines {\n            tx.send(line.to_string()).unwrap();\n        }\n    });\n\n    go!(move || {\n        while let Ok(line) = rx.recv() {\n            if line.contains(\"python\") {\n                println!(\"Filtered: {}\", line);\n            }\n        }\n    });\n}\n```"
+  },
+  {
+    "instruction": "Create a coroutine system where tasks can be cancelled cooperatively in Python.",
+    "output": "```python\nclass Cancelled(Exception): pass\n\n@coroutine\ndef cancellable():\n    try:\n        while True:\n            line = (yield)\n            print(line)\n    except Cancelled:\n        print(\"Cancelled\")\n\nt = cancellable()\nt.send(\"hello\")\nt.throw(Cancelled)\n```"
+  },
+  {
+    "instruction": "Add support for coroutine cancellation to an existing Rust may-based coroutine system.",
+    "output": "```rust\nuse may::go;\nuse std::sync::{Arc, atomic::{AtomicBool, Ordering}};\nuse std::thread;\nuse std::time::Duration;\n\nfn main() {\n    let cancel_flag = Arc::new(AtomicBool::new(false));\n\n    let flag = cancel_flag.clone();\n    go!(move || {\n        for i in 0..10 {\n            if flag.load(Ordering::Relaxed) {\n                println!(\"Cancelled at {}\", i);\n                return;\n            }\n            println!(\"Running {}\", i);\n            thread::sleep(Duration::from_millis(50));\n        }\n    });\n\n    thread::sleep(Duration::from_millis(200));\n    cancel_flag.store(true, Ordering::Relaxed);\n}\n```"
+  },
+  {
+    "instruction": "Demonstrate the use of may::sync::mpsc::channel to coordinate multiple producers and a single consumer.",
+    "output": "```rust\nuse may::go;\nuse may::sync::mpsc;\n\nfn main() {\n    let (tx, rx) = mpsc::channel();\n\n    for i in 0..3 {\n        let tx = tx.clone();\n        go!(move || {\n            tx.send(format!(\"message from producer {}\", i)).unwrap();\n        });\n    }\n\n    go!(move || {\n        for _ in 0..3 {\n            if let Ok(msg) = rx.recv() {\n                println!(\"received: {}\", msg);\n            }\n        }\n    });\n}\n```"
+  },
+  {
+    "instruction": "Show how to use may's select! macro to wait on multiple channel receives.",
+    "output": "```rust\nuse may::go;\nuse may::sync::mpsc::{channel, TryRecvError};\nuse may::select;\n\nfn main() {\n    let (tx1, rx1) = channel();\n    let (tx2, rx2) = channel();\n\n    go!(move || { tx1.send(\"from channel 1\").unwrap(); });\n    go!(move || { tx2.send(\"from channel 2\").unwrap(); });\n\n    go!(move || {\n        for _ in 0..2 {\n            select! {\n                recv(rx1) -> msg => println!(\"Got {}\", msg.unwrap()),\n                recv(rx2) -> msg => println!(\"Got {}\", msg.unwrap()),\n            }\n        }\n    });\n}\n```"
+  },
+  {
+    "instruction": "Build a coroutine-based TCP echo server using may's tcp and io primitives.",
+    "output": "```rust\nuse may::net::{TcpListener, TcpStream};\nuse may::go;\nuse std::io::{Read, Write};\n\nfn main() {\n    let listener = TcpListener::bind(\"127.0.0.1:8080\").unwrap();\n    println!(\"Listening on port 8080\");\n\n    for stream in listener.incoming() {\n        match stream {\n            Ok(mut stream) => {\n                go!(move || {\n                    let mut buf = [0u8; 512];\n                    loop {\n                        let n = match stream.read(&mut buf) {\n                            Ok(n) if n == 0 => return,\n                            Ok(n) => n,\n                            Err(_) => return,\n                        };\n                        stream.write_all(&buf[..n]).unwrap();\n                    }\n                });\n            },\n            Err(e) => eprintln!(\"Connection failed: {}\", e),\n        }\n    }\n}\n```"
+  },
+  {
+    "instruction": "Compare the performance and suitability of using threads vs coroutines for handling 1000 concurrent network requests in Rust.",
+    "output": "Coroutines (via async/await or the `may` crate) are generally more suitable for handling thousands of concurrent network requests than OS threads. Threads are heavier and consume more memory per task, while coroutines can be multiplexed on a small number of threads. Coroutines also avoid thread context-switch overhead and are ideal for IO-bound workloads."
+  },
+  {
+    "instruction": "Which is more appropriate for building an IO-bound file watcher in Rust: spawning threads or using coroutines?",
+    "output": "For IO-bound tasks like file watching, coroutines are more appropriate. They scale better, are lighter on system resources, and allow fine-grained control of task lifecycles. The `may` crate or async runtimes like `tokio` can efficiently handle such use cases without the need for excessive threads."
+  },
+  {
+    "instruction": "What are the advantages of coroutine cancellation via shared flags compared to terminating threads?",
+    "output": "Coroutines can be cooperatively cancelled using shared flags, which is safer and more controlled than forcefully terminating threads. Threads can hold locks or shared state, and killing them can lead to undefined behavior. Coroutines, by contrast, can check flags at yield points and gracefully exit."
+  },
+  {
+    "instruction": "Explain why `select!` in the `may` crate helps improve coroutine coordination.",
+    "output": "The `select!` macro allows coroutines to wait on multiple channels simultaneously, improving responsiveness and reducing resource contention. It lets a coroutine react to whichever message arrives first, simplifying state machines and event loops."
+  },
+  {
+    "instruction": "Should you use threads or coroutines for log stream filtering in Python or Rust?",
+    "output": "For real-time log filtering, coroutines are preferred over threads. They allow low-latency, memory-efficient processing of streamed data and integrate well with non-blocking IO."
+  }
+]
