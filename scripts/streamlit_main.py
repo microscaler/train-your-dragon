@@ -64,23 +64,31 @@ with tab2:
     if slides.exists():
         raw = slides.read_text()
         slides_md = re.split(r'(?m)^---$', raw)
+
         for i, slide in enumerate(slides_md, 1):
-            cleaned = slide.strip()
+            lines = slide.strip().splitlines()
 
-            if not cleaned:
-                continue
+            # Remove deck banner if present on first slide
+            if i == 1 and lines and re.match(r"#\s+🎓", lines[0]):
+                lines = lines[1:]
 
-            # Remove deck header on first slide
-            if i == 1:
-                cleaned = re.sub(r"#\s+🎓.*", "", cleaned)
+            slide_title = None
+            content_lines = []
 
-            # ❗ Corrected regex: match lines starting with optional `#` and "Slide N:"
-            cleaned = re.sub(r"(?m)^#{0,2}\s*Slide \d+:.*$", "", cleaned)
+            for line in lines:
+                match = re.match(r"^#{0,2}\s*Slide \d+:\s*(.*)", line)
+                if match:
+                    slide_title = match.group(1).strip()
+                else:
+                    content_lines.append(line)
 
-            cleaned = cleaned.strip()
+            cleaned = "\n".join(content_lines).strip()
 
             if cleaned:
-                st.markdown(f"---\n\n### 📖 Slide {i}\n\n{cleaned}")
+                if slide_title:
+                    st.markdown(f"---\n\n### 📖 Slide {i}: {slide_title}\n\n{cleaned}")
+                else:
+                    st.markdown(f"---\n\n### 📖 Slide {i}\n\n{cleaned}")
     else:
         st.info("SLIDES.md not found.")
 
