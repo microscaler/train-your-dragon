@@ -60,6 +60,8 @@ with tab1:
 
 import re
 
+import re
+
 with tab2:
     if slides.exists():
         raw = slides.read_text()
@@ -68,12 +70,15 @@ with tab2:
         for i, slide in enumerate(slides_md, 1):
             lines = slide.strip().splitlines()
 
-            # Remove deck banner if present on first slide
-            if i == 1 and lines and re.match(r"#\s+🎓", lines[0]):
-                lines = lines[1:]
-
             slide_title = None
             content_lines = []
+
+            # Strip deck title only from first slide
+            if i == 1 and lines and re.match(r"#\s+🎓", lines[0]):
+                deck_title_line = lines[0].strip("# ").strip()
+                lines = lines[1:]
+            else:
+                deck_title_line = None
 
             for line in lines:
                 match = re.match(r"^#{0,2}\s*Slide \d+:\s*(.*)", line)
@@ -84,13 +89,16 @@ with tab2:
 
             cleaned = "\n".join(content_lines).strip()
 
+            # Fallback if first slide has only a stripped deck title
+            if not cleaned and i == 1 and deck_title_line:
+                cleaned = f"_{deck_title_line}_"
+
             if cleaned:
-                if slide_title:
-                    st.markdown(f"---\n\n### 📖 Slide {i}: {slide_title}\n\n{cleaned}")
-                else:
-                    st.markdown(f"---\n\n### 📖 Slide {i}\n\n{cleaned}")
+                display_title = slide_title or f"Slide {i}"
+                st.markdown(f"---\n\n### 📖 Slide {i}: {display_title}\n\n{cleaned}")
     else:
         st.info("SLIDES.md not found.")
+
 
 
 

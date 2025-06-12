@@ -10,8 +10,10 @@ default:
 
 
 # 🛠 Setup
-setup:
+setup-python:
     python3 -m venv .venv
+
+install-req:
     source .venv/bin/activate && pip install -r requirements.txt
 
 activate:
@@ -37,3 +39,24 @@ notebook:
 
 quiz MODULE:
 	streamlit run scripts/quiz_web_app.py -- --module {{MODULE}}
+
+# Start Docker Compose
+start-dev:
+	docker-compose -f docker-compose.yml up --build
+
+# Stop containers
+stop-dev:
+	docker-compose -f docker-compose.yml down
+
+# Seed Supabase with schema and questions
+seed-db:
+	docker exec -i supabase-db psql -U postgres -d postgres < scripts/grpc/schema.sql
+	docker exec -i supabase-db psql -U postgres -d postgres < scripts/grpc/supabase_seed_questions.sql
+
+# Rebuild only backend service
+build-backend:
+	docker-compose -f docker-compose.yml build exam-backend
+
+# Test certificate PDF generation
+build-cert:
+	python3 scripts/certificate_generator.py
