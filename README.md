@@ -31,6 +31,18 @@ A **custom-trained LLM** gives you:
 * 🧠 The ability to teach your model exactly how you think
 
 ---
+👩‍🏫 Who Is This Course For?
+
+This course assumes:
+
+- You are comfortable writing and reading Python code
+- You may not know anything about AI or machine learning
+- You are new to Jupyter Notebooks
+- You have a basic understanding of Rust or Python, but no prior experience with Large Language Models (LLMs)
+
+We will teach everything else, starting from core concepts of how LLMs work to how to deploy and fine-tune your own AI agent.
+
+---
 
 ## 🔧 How Does the Course Work?
 
